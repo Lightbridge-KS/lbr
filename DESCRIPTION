@@ -1,16 +1,28 @@
 Package: lightbridgeR
-Title: What the Package Does (One Line, Title Case)
+Title: Data wrangling and analysis
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Kittipos",
+           family = "Sirivongrungson",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           email = "ki11ip0.s.a.s@gmail.com")
+Description: My personal taste of data wrangling and analysis.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Depends:
+    R (>= 3.1)
+Imports:
+    dplyr,
+    ellipsis (>= 0.1.0),
+    purrr,
+    readr,
+    stringr,
+    tidyselect (>= 1.1.0),
+    tools,
+    utils,
+    magrittr
+Suggests:
+    snakecase
