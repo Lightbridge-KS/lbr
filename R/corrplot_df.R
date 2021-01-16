@@ -59,20 +59,6 @@ corrplot_df <- function(df,                      # df = Dataframe
   requireNamespace("dplyr")
   requireNamespace("purrr")
 
-  # cor.mtest <- function(mat, method_cor) {
-  #   mat <- as.matrix(mat)
-  #   n <- ncol(mat)
-  #   p.mat<- matrix(NA, n, n)
-  #   diag(p.mat) <- 0
-  #   for (i in 1:(n - 1)) {
-  #     for (j in (i + 1):n) {
-  #       tmp <- stats::cor.test(mat[, i], mat[, j], method = method_cor) # *cor.test
-  #       p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
-  #     }
-  #   }
-  #   colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
-  #   p.mat
-  # }
 
   df.num <- df %>%
     dplyr::select(tidyselect::vars_select_helpers$where(is.numeric))   # Choose only numeric column

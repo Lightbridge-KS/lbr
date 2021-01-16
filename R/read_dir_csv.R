@@ -21,10 +21,10 @@
 #' # And file names are set to names of each data frame in a list
 #'
 #' # Give a directory path
-#'   read_dir_csv(path/to/dir)
+#'   read_dir_csv("path/to/dir")
 #'
 #' # Also, can read from every sub-directory of given directory
-#'   read_dir_csv(path/to/dir, recursive = T)
+#'   read_dir_csv("path/to/dir", recursive = T)
 #'
 #' # Can specify regular expression of file names to read
 #'   read_dir_csv(file_pattern = "[:digit:]+\\.csv$")  # file name contains numbers
