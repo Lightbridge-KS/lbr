@@ -6,7 +6,7 @@
 #' @param strict_csv_ext If `TRUE` (default): Strictly read only .csv file
 #' @param recursive If `TRUE`: Also read in sub-directory
 #' @param snake_case If `TRUE`: include snake_case in file_names (require snakecase package)
-#'
+#' @inheritParams readr::read_csv()
 #' @return A list of tibbles
 #' @import readr stringr purrr tools utils
 #'
@@ -14,16 +14,17 @@
 #' @export
 #'
 #' @examples
-#'
+#' # Not run
+#' if(FALSE){
 #' # Read form current working directory by default
-#    read_dir_csv()
+#'   read_dir_csv()
 #' # And file names are set to names of each data frame in a list
 #'
 #' # Give a directory path
-#'   read_dir_csv(dir_path)
+#'   read_dir_csv(path/to/dir)
 #'
 #' # Also, can read from every sub-directory of given directory
-#'   read_dir_csv(dir_path, recursive = T)
+#'   read_dir_csv(path/to/dir, recursive = T)
 #'
 #' # Can specify regular expression of file names to read
 #'   read_dir_csv(file_pattern = "[:digit:]+\\.csv$")  # file name contains numbers
@@ -34,7 +35,7 @@
 #'
 #' # If you want file names in snake_case (require snakecase package)
 #'   read_dir_csv(snake_case = T)
-#'
+#' }
 read_dir_csv <- function(dir_path = NULL, # if NULL: dir_path is current working dir
                          ... , # ... pass to read_csv
                          file_pattern = "\\.csv$", # Regex to read from .csv file
@@ -90,7 +91,7 @@ read_dir_csv <- function(dir_path = NULL, # if NULL: dir_path is current working
   if(length(names) == 0) stop("Not found .csv file",call. = F)
 
   if(snake_case == T){
-    if( !require(snakecase, quietly = TRUE) ) stop("Require install snakecase package")
+    if( !requireNamespace(snakecase, quietly = TRUE) ) stop("This feature require `snakecase` package installed")
     names <- names %>% purrr::map_chr(snakecase::to_snake_case)
   }
 

@@ -33,15 +33,17 @@ A list of tibbles
 Read CSV files form a directory
 }
 \examples{
-
+# Not run
+if(FALSE){
 # Read form current working directory by default
+  read_dir_csv()
 # And file names are set to names of each data frame in a list
 
 # Give a directory path
-  read_dir_csv(dir_path)
+  read_dir_csv(path/to/dir)
 
 # Also, can read from every sub-directory of given directory
-  read_dir_csv(dir_path, recursive = T)
+  read_dir_csv(path/to/dir, recursive = T)
 
 # Can specify regular expression of file names to read
   read_dir_csv(file_pattern = "[:digit:]+\\\\.csv$")  # file name contains numbers
@@ -52,5 +54,5 @@ Read CSV files form a directory
 
 # If you want file names in snake_case (require snakecase package)
   read_dir_csv(snake_case = T)
-
+}
 }

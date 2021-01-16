@@ -1,12 +1,13 @@
 Package: lbr
 Title: Data wrangling and analysis
 Version: 0.0.0.9000
-Authors@R: 
+Authors@R:  
     person(given = "Kittipos",
            family = "Sirivongrungson",
            role = c("aut", "cre"),
            email = "ki11ip0.s.a.s@gmail.com")
 Description: My personal taste of data wrangling and analysis.
+URL: https://github.com/Lightbridge-AI/lbr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -15,6 +16,7 @@ RoxygenNote: 7.1.1
 Depends:
     R (>= 3.1)
 Imports:
+    corrplot,
     dplyr,
     ellipsis (>= 0.1.0),
     purrr,
