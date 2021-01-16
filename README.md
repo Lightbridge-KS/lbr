@@ -7,7 +7,9 @@
 <!-- badges: end -->
 
 **My personal tools for data wrangling and analysis, a collection of
-random stuff, mostly relies on `tidyverse package` .**
+random stuff.**
+
+**Mostly relies on `tidyverse package`.**
 
 ## Installation
 
