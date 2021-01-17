@@ -1,7 +1,7 @@
 Package: lbr
 Title: Data wrangling and analysis
 Version: 0.0.0.9000
-Authors@R:  
+Authors@R: 
     person(given = "Kittipos",
            family = "Sirivongrungson",
            role = c("aut", "cre"),
@@ -25,6 +25,7 @@ Imports:
     tidyselect (>= 1.1.0),
     tools,
     utils,
-    magrittr
+    magrittr,
+    fs
 Suggests:
     snakecase

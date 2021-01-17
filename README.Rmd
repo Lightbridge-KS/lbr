@@ -36,7 +36,7 @@ devtools::install_github("Lightbridge-AI/lbr")
 
 ## Read multiple CSV files from a directory
 
-I want to use `readr::read_csv()` for multiple CSV files. So, I combine `read_csv()` with `purrr::map()` to read from a directory path with a little help of `utils`, `tools`, and `stringr` for file pattern matching.
+I want to use `readr::read_csv()` for multiple CSV files. So, I combine `read_csv()` with `lapply` to read from a directory path with a little help of `fs package` to get file path and `grep()` for file pattern matching.
 
 ```{r read_dir_csv, eval=FALSE}
 
@@ -51,18 +51,22 @@ I want to use `readr::read_csv()` for multiple CSV files. So, I combine `read_cs
 # Give a directory path
   read_dir_csv("path/to/dir")
   
-# Also, can read from every sub-directory of given directory 
-  read_dir_csv("path/to/dir", recursive = T)
+# Also, can read from sub-directory of given directory
   
-# Can specify regular expression of file names to read
-  read_dir_csv(file_pattern = "[:digit:]+\\.csv$")  # file name contains numbers
+  read_dir_csv("path/to/dir", recurse = T)
+  
+# Can specify regular expression of file names to read.
+  
+  read_dir_csv(regexp = "[[:digit:]]+")  # CSV file name contains numbers
   
 # If set strict_csv_ext = F and remove regex which require file name ending with .csv
 # it might read other file type as well (if you like)
-  read_dir_csv(file_pattern = "[:digit:]+", strict_csv_ext = F)
+  
+  read_dir_csv(regexp = "[[:digit:]]+\\.txt$", strict_csv_ext = FALSE) # Try read .txt file
   
 # If you want file names in snake_case (require snakecase package)
-  read_dir_csv(snake_case = T)
+  
+  read_dir_csv(snake_case = TRUE)
 ```
 
 ## Plot correlation from data frame

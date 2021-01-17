@@ -5,54 +5,78 @@
 \title{Read CSV files form a directory}
 \usage{
 read_dir_csv(
-  dir_path = NULL,
+  path = ".",
   ...,
-  file_pattern = "\\\\.csv$",
+  all = F,
+  recurse = F,
   strict_csv_ext = T,
-  recursive = F,
+  regexp = ".",
+  invert = F,
+  ignore.case = F,
+  perl = F,
+  fixed = F,
   snake_case = F
 )
 }
 \arguments{
-\item{dir_path}{Path to desired directory. If \code{NULL}, path to current working directory is assumed.}
+\item{path}{Character: Path to desired directory which contain file, default is "." working directory. (passed to \code{fs::dir_ls()})}
 
 \item{...}{Argument to pass to \code{readr::read_csv()}}
 
-\item{file_pattern}{Regular expression to read from file name, default = "\\.csv$"}
+\item{all}{If \code{TRUE} hidden files are also returned. (passed to \code{fs::dir_ls()})}
 
-\item{strict_csv_ext}{If \code{TRUE} (default): Strictly read only .csv file}
+\item{recurse}{If \code{TRUE} read recursively in sub-directory, if a positive number the number of levels to recurse. (passed to \code{fs::dir_ls()})}
 
-\item{recursive}{If \code{TRUE}: Also read in sub-directory}
+\item{strict_csv_ext}{If \code{TRUE} (default): Strictly read only files, which has files name ending with .csv}
 
-\item{snake_case}{If \code{TRUE}: include snake_case in file_names (require snakecase package)}
+\item{regexp}{Character: Specify a regular expression to read from file names (passed to \code{grep()}) . If you want to match file names other than \code{.csv}, turn \code{strict_csv_ext = FALSE}.}
+
+\item{invert}{Logical: If \code{TRUE} read from file that file names do not match \code{regexp}.(passed to \code{grep()})}
+
+\item{ignore.case}{If FALSE, the regular expression matching is case sensitive and if \code{TRUE}, case is ignored during matching.(passed to \code{grep()})}
+
+\item{perl}{Logical: Should Perl-compatible regexps be used? (passed to \code{grep()})}
+
+\item{fixed}{Logical: If \code{TRUE}, pattern is a string to be matched as is. Overrides all conflicting arguments.}
+
+\item{snake_case}{If \code{TRUE}: Convert data frame names to snake_case_format.  (require \code{snakecase} package)}
 }
 \value{
 A list of tibbles
 }
 \description{
-Read CSV files form a directory
+Read multiple CSV files from a directory (folder)
 }
 \examples{
-# Not run
+
+#' # Not run
 if(FALSE){
 # Read form current working directory by default
   read_dir_csv()
 # And file names are set to names of each data frame in a list
 
 # Give a directory path
-  read_dir_csv(path/to/dir)
+  read_dir_csv("path/to/dir")
 
 # Also, can read from every sub-directory of given directory
-  read_dir_csv(path/to/dir, recursive = T)
+  read_dir_csv("path/to/dir", recurse = T)
 
-# Can specify regular expression of file names to read
-  read_dir_csv(file_pattern = "[:digit:]+\\\\.csv$")  # file name contains numbers
+# Can specify regular expression of file names to read.
+  read_dir_csv(regexp = "[[:digit:]]+")  # CSV file name contains numbers
 
 # If set strict_csv_ext = F and remove regex which require file name ending with .csv
 # it might read other file type as well (if you like)
-  read_dir_csv(file_pattern = "[:digit:]+", strict_csv_ext = F)
+  read_dir_csv(regexp = "[[:digit:]]+\\\\.txt$", strict_csv_ext = FALSE) # Try read .txt file
 
 # If you want file names in snake_case (require snakecase package)
-  read_dir_csv(snake_case = T)
+  read_dir_csv(snake_case = TRUE)
 }
+
+}
+\seealso{
+\code{readr::read_csv()}
+\url{https://readr.tidyverse.org}
+
+\code{fs} package
+\url{https://fs.r-lib.org/index.html}
 }

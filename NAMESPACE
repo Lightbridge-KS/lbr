@@ -2,7 +2,9 @@
 
 export(corrplot_df)
 export(read_dir_csv)
+export(read_dir_csv_2)
 import(dplyr)
+import(fs)
 import(purrr)
 import(readr)
 import(stringr)
