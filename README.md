@@ -58,6 +58,56 @@ matching.
   read_dir_csv(snake_case = TRUE)
 ```
 
+## Read multiple files by supply a function
+
+**Now, you can supply any file reading function you want to read from a
+directory !**
+
+`read.dir()` can read multiple files from a directory using a function
+supplied by a user.
+
+First argument `fun` is any function you want to use as reading engine.
+eg. utils::read.csv (first argument of `fun` must be file path)
+
+Second argument `path` is a path to directory.
+
+Third argument `pattern` is a regular expression to match file name and
+extension you want to read.
+
+`...` : argument pass to `fun` .
+
+``` r
+# Read .csv file form working directory (default) using `utils::read.csv`. 
+
+  read.dir(utils::read.csv) # default `pattern` is "\\.csv$"
+  
+# Read .xlsx file from a directory using `readxl::read_excel`. 
+## Must specify regular expression to match file extension.
+  
+  read.dir(readxl::read_excel, path = "path/to/dir" ,pattern = "\\.xlsx$")
+  
+# Read .rds file ; To also read form sub-directory set `recursive = TRUE` .
+  
+  read.dir(readRDS, pattern = "\\.rds$", path = "path/to/dir" ,recursive = TRUE)
+  
+# Read files using multiple engine from multiple path and multiple file extension.
+  
+  params <- list(fun = c(read_csv, readxl::read_excel),
+                 path = c("path/to/dir_1", "path/to/dir_2"),
+                 pattern = c("\\.csv$", "\\.xlsx$")
+                 )
+  
+  purrr::pmap(params, read.dir)
+  
+  # or using base R
+  
+  ls <- vector("list", 2)
+  for(i in seq_along(params[[1]])){
+    ls[[i]]  <- read.dir(fun = params[[1]][[i]],  path = params[[2]][[i]],
+                         pattern = params[[3]][[i]])
+  }
+```
+
 ## Plot correlation from data frame
 
 **A wrapper around `corrplot::corrplot()` which accept data frame as
@@ -91,7 +141,7 @@ mtcars %>%
                 )
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ``` r
 mtcars %>% 
@@ -103,4 +153,4 @@ mtcars %>%
                 )
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
