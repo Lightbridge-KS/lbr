@@ -66,15 +66,16 @@ directory !**
 `read.dir()` can read multiple files from a directory using a function
 supplied by a user.
 
-First argument `fun` is any function you want to use as reading engine.
-eg. utils::read.csv (first argument of `fun` must be file path)
+-   First argument `fun` is any function you want to use as reading
+    engine. (first argument of `fun` must be file path) eg.
+    `utils::read.csv`
 
-Second argument `path` is a path to directory.
+-   Second argument `path` is a path to directory.
 
-Third argument `pattern` is a regular expression to match file name and
-extension you want to read.
+-   Third argument `pattern` is a regular expression to match file name
+    and extension you want to read.
 
-`...` : argument pass to `fun` .
+-   `...` : argument pass to `fun` .
 
 ``` r
 # Read .csv file form working directory (default) using `utils::read.csv`. 
@@ -92,7 +93,7 @@ extension you want to read.
   
 # Read files using multiple engine from multiple path and multiple file extension.
   
-  params <- list(fun = c(read_csv, readxl::read_excel),
+  params <- list(fun = c(readr::read_csv, readxl::read_excel),
                  path = c("path/to/dir_1", "path/to/dir_2"),
                  pattern = c("\\.csv$", "\\.xlsx$")
                  )
