@@ -63,7 +63,7 @@ read.dir <- function(fun, path = ".",    # ... to fun
                      all.files = F, recursive = F, no.. = F, # to list.files()
                      snake_case = F
 ){
-  # No Dependency !! (suggest snake_case pkg)
+  # Dependency rlang !! (suggest snake_case pkg)
 
   # 1. Test file validity --------------------------------------------------------------
 
@@ -73,7 +73,8 @@ read.dir <- function(fun, path = ".",    # ... to fun
   ##  Now file is exist ; test is it a file or link ?
   if( file.info(path)["isdir"] == F ){
 
-    message("Path is not a directory, attempting to read by `fun`")
+    fun_name <- names(rlang::enquos(fun, .named = T))
+    message("Path is not a directory, attempting to read by `", fun_name ,"`")
     return(fun(path, ...))
 
   } else { ### Path is directory

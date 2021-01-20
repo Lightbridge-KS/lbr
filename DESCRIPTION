@@ -26,6 +26,7 @@ Imports:
     tools,
     utils,
     magrittr,
-    fs
+    fs,
+    rlang
 Suggests:
     snakecase
