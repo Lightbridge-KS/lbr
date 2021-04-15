@@ -27,6 +27,7 @@ Imports:
     utils,
     magrittr,
     fs,
-    rlang
+    rlang,
+    ggplot2
 Suggests:
     snakecase
