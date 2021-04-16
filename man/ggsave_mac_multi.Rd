@@ -19,6 +19,8 @@ ggsave_mac_multi(
 \arguments{
 \item{plot_objs}{plot objects}
 
+\item{paths}{Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.}
+
 \item{width}{Plot size in units ("in", "cm", or "mm").}
 
 \item{height}{Plot size in units ("in", "cm", or "mm").}
@@ -32,8 +34,6 @@ ggsave_mac_multi(
 \item{device}{Device to use. Can either be a device function (e.g. png()), or one of "eps", "ps", "tex" (pictex), "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 
 \item{...}{passed to \code{ggsave}}
-
-\item{path}{Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.}
 }
 \value{
 print plots and save to files

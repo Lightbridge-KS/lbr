@@ -28,6 +28,13 @@ Imports:
     magrittr,
     fs,
     rlang,
-    ggplot2
+    ggplot2,
+    recipes,
+    yardstick,
+    forcats,
+    tidytext,
+    glue,
+    tidyr,
+    ggrepel
 Suggests:
     snakecase

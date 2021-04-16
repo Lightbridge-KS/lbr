@@ -57,7 +57,7 @@ ggsave_mac <- function(filename,
 #' My custom ggsave for macbook pro (Multi-plots)
 #'
 #' @param plot_objs plot objects
-#' @param path Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.
+#' @param paths Path of the directory to save plot to: path and filename are combined to create the fully qualified file name. Defaults to the working directory.
 #' @param width Plot size in units ("in", "cm", or "mm").
 #' @param height Plot size in units ("in", "cm", or "mm").
 #' @param units Plot size in units ("in", "cm", or "mm").
