@@ -35,6 +35,7 @@ Imports:
     tidytext,
     glue,
     tidyr,
-    ggrepel
+    ggrepel,
+    openxlsx
 Suggests:
     snakecase
