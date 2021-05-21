@@ -5,3 +5,5 @@
 .DS_Store
 build.Rmd
 build.nb.html
+my_data
+my_dev
