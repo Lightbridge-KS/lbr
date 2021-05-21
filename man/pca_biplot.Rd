@@ -11,6 +11,7 @@ pca_biplot(
   y = PC2,
   alpha = 0.8,
   size = 2,
+  geom_type_scatter = geom_point,
   x_origin = 0,
   y_origin = 0,
   arrow_scale = 1,
@@ -45,6 +46,8 @@ pca_biplot(
 \item{alpha}{point transparency (passed to \code{geom_point})}
 
 \item{size}{size of point (passed to \code{geom_point})}
+
+\item{geom_type_scatter}{(unquoted name) Type of scatter plot: \code{geom_point} or \code{geom_text}}
 
 \item{x_origin}{(numeric) x-origin of the arrow (passed to \code{lbr::geom_arrow_pca})}
 

@@ -108,6 +108,7 @@ pca_scree_plot <- function(pca_recipe, # after prep()
 #' Plot Loading Score from PCA
 #'
 #' @param pca_recipe Object class recipe that already `step_pca`
+#' @param component Integer vector indicate which PCs to show, the default "all" shows every components.
 #' @param fill (character) Fill of positive & negative values
 #' @param nrow (numeric) Number of rows in facet
 #' @param ncol (numeric) Number of columns in facet
@@ -129,24 +130,39 @@ pca_scree_plot <- function(pca_recipe, # after prep()
 #'   prep_pca() %>%
 #'   pca_load_plot()
 pca_load_plot <- function(pca_recipe,
+                          component = "all",
                           fill = c("#b6dfe2", "#0A537D"),
                           nrow = NULL, ncol = NULL,
                           ...) { # To geom_col
 
   # require(dplyr)
+  # require(stringr)
   # require(forcats)
   # require(ggplot2)
   # require(rlang)
   # require(yardstick)
 
   load_df <- pca_recipe %>%
-    yardstick::tidy(id = "pca") %>%
+    yardstick::tidy(id = "pca")
+
+  num_comp <-  if(component == "all"){
+    load_df %>%
+      dplyr::pull(component) %>%
+      unique() %>%
+      stringr::str_extract("[:digit:]+")
+  }else if(is.numeric(component)){
+    component
+  }else{ stop("`component must be 'all' or integer vector", call. = F) }
+
+  load_df_mod <- load_df %>%
+    # Filter Components
+    dplyr::filter(component %in% c(paste0("PC", num_comp ))) %>%
     dplyr::mutate(component = forcats::as_factor(component)) %>%
     dplyr::mutate(component = forcats::fct_inorder(component)) %>%
     dplyr::mutate(terms = tidytext::reorder_within(terms,
                                                    abs(value),
                                                    component))
-  load_df %>%
+  load_df_mod %>%
     ggplot2::ggplot(ggplot2::aes(abs(value), terms, fill = value > 0)) +
     ggplot2::geom_col(...) +
     ggplot2::facet_wrap(~component, scales = "free_y", nrow = nrow, ncol = ncol) +
@@ -170,6 +186,7 @@ pca_load_plot <- function(pca_recipe,
 #' @param y unquoted name to specify which principle component to plot in y-axis (must be one of PC1, PC2, PC3, ... ,etc.)
 #' @param alpha point transparency (passed to `geom_point`)
 #' @param size size of point (passed to `geom_point`)
+#' @param geom_type_scatter (unquoted name) Type of scatter plot: `geom_point` or `geom_text`
 #' @param x_origin (numeric) x-origin of the arrow (passed to `lbr::geom_arrow_pca`)
 #' @param y_origin (numeric) y-origin of the arrow (passed to `lbr::geom_arrow_pca`)
 #' @param arrow_scale (numeric) scale factor of the arrow (passed to `lbr::geom_arrow_pca`)
@@ -204,6 +221,7 @@ pca_biplot <- function(pca_recipe,
                        x = PC1, y = PC2,   # X and Y axis
 
                        alpha = 0.8, size = 2,      # Point
+                       geom_type_scatter = geom_point, ## Type of scatter plot
 
                        x_origin = 0, y_origin = 0, # Arrow: origin & scale length
                        arrow_scale = 1,
@@ -231,9 +249,11 @@ pca_biplot <- function(pca_recipe,
 ) {
 
   geom_type <- rlang::enexpr(geom_type)
+  geom_type_scatter <- rlang::enexpr(geom_type_scatter)
 
   pca_recipe %>%
     pca_scatter_plot(mapping = mapping, x = {{x}}, y = {{y}},
+                     geom_type = !!geom_type_scatter,
                      alpha = alpha, size = size, ...) +
     geom_arrow_pca(pca_recipe,
                    x = {{x}}*arrow_scale,
@@ -273,6 +293,7 @@ pca_biplot <- function(pca_recipe,
 #' @param mapping aesthetic i.e. `ggplot2::aes()` mapping
 #' @param x unquoted name to specify which principle component to plot in x-axis (must be one of PC1, PC2, PC3, ... ,etc.)
 #' @param y unquoted name to specify which principle component to plot in y-axis (must be one of PC1, PC2, PC3, ... ,etc.)
+#' @param geom_type unquoted name to specify type of geom to plot: `geom_point` or `geom_text`
 #' @param alpha passed to `geom_point`
 #' @param size passed to `geom_point`
 #' @param ... passed to `geom_point`
@@ -298,11 +319,21 @@ pca_biplot <- function(pca_recipe,
 pca_scatter_plot <- function(pca_recipe,
                              mapping = NULL,
                              x = PC1, y = PC2,
+                             geom_type = geom_point,
                              alpha = 0.8, size = 2, ...) {
 
   # require(recipes)
   # require(ggplot2)
   # require(rlang)
+  scatter <- switch (rlang::as_string(rlang::enexpr(geom_type)),
+                     "geom_point" = {
+                       ggplot2::geom_point(mapping, alpha = alpha, size = size, ...)
+                     },
+                     "geom_text" = {
+                       ggplot2::geom_text(mapping, alpha = alpha, size = size + 2, ...)
+                     },
+                     stop("`geom_type` must be geom_point or geom_text", call. = F)
+  )
 
   ### Extract PC from x and y
   pc_x <- rlang::ensym(x) %>% rlang::as_string()
@@ -321,12 +352,12 @@ pca_scatter_plot <- function(pca_recipe,
 
   pca_coord %>%
     ggplot2::ggplot(ggplot2::aes(x = {{x}}, y = {{y}})) +
-    ggplot2::geom_point(mapping,
-                        alpha = alpha, size = size, ...) +
+    scatter +
     ggplot2::labs(x = glue::glue("{pc_x} ({pca_percent_var[pc_x_num]}%)"),
                   y = glue::glue("{pc_y} ({pca_percent_var[pc_y_num]}%)"))
 
 }
+
 
 
 # Label layer - to add to scatter plot ------------------------------------

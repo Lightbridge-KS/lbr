@@ -6,6 +6,7 @@
 \usage{
 pca_load_plot(
   pca_recipe,
+  component = "all",
   fill = c("#b6dfe2", "#0A537D"),
   nrow = NULL,
   ncol = NULL,
@@ -14,6 +15,8 @@ pca_load_plot(
 }
 \arguments{
 \item{pca_recipe}{Object class recipe that already \code{step_pca}}
+
+\item{component}{Integer vector indicate which PCs to show, the default "all" shows every components.}
 
 \item{fill}{(character) Fill of positive & negative values}
 

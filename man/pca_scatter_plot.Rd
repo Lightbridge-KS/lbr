@@ -9,6 +9,7 @@ pca_scatter_plot(
   mapping = NULL,
   x = PC1,
   y = PC2,
+  geom_type = geom_point,
   alpha = 0.8,
   size = 2,
   ...
@@ -22,6 +23,8 @@ pca_scatter_plot(
 \item{x}{unquoted name to specify which principle component to plot in x-axis (must be one of PC1, PC2, PC3, ... ,etc.)}
 
 \item{y}{unquoted name to specify which principle component to plot in y-axis (must be one of PC1, PC2, PC3, ... ,etc.)}
+
+\item{geom_type}{unquoted name to specify type of geom to plot: \code{geom_point} or \code{geom_text}}
 
 \item{alpha}{passed to \code{geom_point}}
 
