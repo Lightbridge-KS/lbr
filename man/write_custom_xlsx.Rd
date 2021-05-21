@@ -18,6 +18,7 @@ write_custom_xlsx(
   head_border = "TopBottomLeftRight",
   head_halign = "center",
   head_valign = "center",
+  return_wb = F,
   ...
 )
 }
@@ -48,10 +49,12 @@ write_custom_xlsx(
 
 \item{head_valign}{Header Vertical alignment of cell contents (passed to \code{openxlsx::createStyle})}
 
+\item{return_wb}{If \code{TRUE} Return workbook object.}
+
 \item{...}{to \code{openxlsx::write.xlsx}}
 }
 \value{
-A workbook object
+Input Data \code{x} or workbook object
 }
 \description{
 A Wrapper around \code{openxlsx::write.xlsx}

@@ -13,9 +13,10 @@
 #' @param head_border Header Cell border. A vector of "top", "bottom", "left", "right" or a single string). (passed to `openxlsx::createStyle`)
 #' @param head_halign Header Horizontal alignment of cell contents (passed to `openxlsx::createStyle`)
 #' @param head_valign Header Vertical alignment of cell contents (passed to `openxlsx::createStyle`)
+#' @param return_wb If `TRUE` Return workbook object.
 #' @param ... to `openxlsx::write.xlsx`
 #'
-#' @return A workbook object
+#' @return Input Data `x` or workbook object
 #' @importFrom purrr map_lgl walk
 #' @importFrom openxlsx createStyle write.xlsx freezePane saveWorkbook
 #' @export
@@ -34,6 +35,8 @@ write_custom_xlsx <- function(x, file, asTable = F,
                               head_border = "TopBottomLeftRight", # header border
                               head_halign = "center",
                               head_valign = "center",
+                              # Return workbook obj or not
+                              return_wb = F,
                               ...){
 
 
@@ -62,5 +65,7 @@ write_custom_xlsx <- function(x, file, asTable = F,
                                     firstCol = freeze_firstCol) )
 
   openxlsx::saveWorkbook(wb,  file, overwrite = T)
+
+  if(return_wb){ return(wb) }else{ return(x) }
 
 }
