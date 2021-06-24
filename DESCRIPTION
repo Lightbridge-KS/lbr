@@ -37,6 +37,8 @@ Imports:
     tidyr,
     ggrepel,
     openxlsx,
-    stats
+    stats,
+    googlesheets4,
+    googledrive
 Suggests:
     snakecase
