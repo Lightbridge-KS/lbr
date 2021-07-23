@@ -6,6 +6,7 @@
 #' @param ... Variables to count (one level); If not supply, count all variables.
 #' @param sort If `TRUE`, will show the largest groups at the top.
 #' @param name The name of the new column in the output.
+#' @param prop If `TRUE` calculate proprotion for each count.
 #'
 #' @return A named list of data.frame
 #' @export
@@ -15,7 +16,11 @@
 #' count_vars(iris)
 #' # Count Specified variables
 #' count_vars(iris, Species, Sepal.Length)
-count_vars <- function(x, ... ,sort = TRUE, name = NULL) {
+count_vars <- function(x, ... ,
+                       sort = TRUE,
+                       name = NULL,
+                       prop = FALSE
+) {
 
   dot <- rlang::enexprs(...)
 
@@ -28,7 +33,17 @@ count_vars <- function(x, ... ,sort = TRUE, name = NULL) {
     stats::setNames(names(x), names(x))
   }
 
-  vars_chr %>% purrr::map(
+  ls_counted <- vars_chr %>% purrr::map(
     ~count(x, dplyr::across(.x), sort = sort, name = name)
   )
+
+  if(prop){ # Add Proprotion
+    n <- ifelse(is.null(name), rlang::expr(n), rlang::ensym(name))
+    prop_expr <- rlang::expr((!!n)/sum(!!n))
+    ls_counted %>%
+      purrr::map(~dplyr::mutate(.x, prop := !!prop_expr))
+  }else{
+    ls_counted
+  }
+
 }
