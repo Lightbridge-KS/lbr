@@ -4,7 +4,7 @@
 \alias{count_vars}
 \title{Count Variables in a data.frame}
 \usage{
-count_vars(x, ..., sort = TRUE, name = NULL)
+count_vars(x, ..., sort = TRUE, name = NULL, prop = FALSE)
 }
 \arguments{
 \item{x}{A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr).}
@@ -14,6 +14,8 @@ count_vars(x, ..., sort = TRUE, name = NULL)
 \item{sort}{If \code{TRUE}, will show the largest groups at the top.}
 
 \item{name}{The name of the new column in the output.}
+
+\item{prop}{If \code{TRUE} calculate proprotion for each count.}
 }
 \value{
 A named list of data.frame
