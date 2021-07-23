@@ -38,7 +38,7 @@ set_names_match <- function(x,
   lookup_index <-  match(names(x),  lookup)
   is_any_no_match <- any(is.na(lookup_index))
 
-  if(is_any_no_match){
+  if(!quiet && is_any_no_match){
     no_match_index <- which(is.na(lookup_index))
     no_match_nm <- names(x)[no_match_index]
     message("The following names of `x` are not match:\n")
