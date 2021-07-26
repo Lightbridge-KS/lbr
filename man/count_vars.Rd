@@ -2,7 +2,7 @@
 % Please edit documentation in R/explore.R
 \name{count_vars}
 \alias{count_vars}
-\title{Count Variables in a data.frame}
+\title{Count Each Variables in a Data Frame}
 \usage{
 count_vars(x, ..., sort = TRUE, name = NULL, prop = FALSE)
 }
@@ -21,7 +21,8 @@ count_vars(x, ..., sort = TRUE, name = NULL, prop = FALSE)
 A named list of data.frame
 }
 \description{
-Count all or many variables in a data.frame and display the results as list of data.frame.
+Count all or many variables in a data.frame (depth 1 level) and display the results as list of data.frame.
+This function intended for interactive use.
 }
 \examples{
 # Count All variables

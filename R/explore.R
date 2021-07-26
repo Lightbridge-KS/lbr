@@ -1,6 +1,7 @@
-#' Count Variables in a data.frame
+#' Count Each Variables in a Data Frame
 #'
-#' Count all or many variables in a data.frame and display the results as list of data.frame.
+#' Count all or many variables in a data.frame (depth 1 level) and display the results as list of data.frame.
+#' This function intended for interactive use.
 #'
 #' @param x A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr).
 #' @param ... Variables to count (one level); If not supply, count all variables.
