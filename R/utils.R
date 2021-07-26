@@ -91,3 +91,43 @@ ggsave_mac_multi <- function(plot_objs, # plot objects
   }
 
 }
+
+
+# Unit conversion: cm. and inch ------------------------------------------
+
+
+#' Convert Centimeter to Inches
+#'
+#' @param x A numeric vector as Centimeter
+#' @param unclass If `FALSE` return object class "units"
+#'
+#' @return A numeric vector as Inches
+#' @export
+#'
+#' @examples
+#' cm_to_inch(1:3)
+cm_to_inch <- function(x, unclass = TRUE) {
+  cm <- units::set_units(x, "cm")
+  units(cm) <- "inch"
+
+  if(!unclass) return(cm)
+  as.numeric(cm)
+}
+
+#' Convert Inches to Centimeter
+#'
+#' @param x A numeric vector as Inches
+#' @param unclass If `FALSE` return object class "units"
+#'
+#' @return A numeric vector as Centimeter
+#' @export
+#'
+#' @examples
+#' inch_to_cm(2.5)
+inch_to_cm <- function(x, unclass = TRUE) {
+  inch <- units::set_units(x, "inch")
+  units(inch) <- "cm"
+
+  if(!unclass) return(inch)
+  as.numeric(inch)
+}

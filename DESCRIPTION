@@ -39,6 +39,7 @@ Imports:
     openxlsx,
     stats,
     googlesheets4,
-    googledrive
+    googledrive,
+    units
 Suggests:
     snakecase
