@@ -18,7 +18,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Lightbridge-AI/lbr")
+devtools::install_github("Lightbridge-KS/lbr")
 ```
 
 ## Read multiple CSV files from a directory
