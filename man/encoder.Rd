@@ -4,7 +4,7 @@
 \alias{encoder}
 \title{Encode Vector}
 \usage{
-encoder(x, match, encode = match)
+encoder(x, match, encode = match, nomatch = c("NA", "original"))
 }
 \arguments{
 \item{x}{vector: input data to be matched.}
@@ -12,6 +12,13 @@ encoder(x, match, encode = match)
 \item{match}{vector: matching value to \code{x}}
 
 \item{encode}{vector: encoding vector same length as \code{match}}
+
+\item{nomatch}{Character: Indicate result if elements in \code{x} was not matched with \code{match}.
+It must be one of:
+\itemize{
+\item \strong{"NA"}: return \code{NA}
+\item \strong{"original"}: return original elements in \code{x}
+}}
 }
 \value{
 encoded vector
@@ -20,8 +27,9 @@ encoded vector
 Match and Encode vector
 }
 \details{
-Elements that not match will return \code{NA}.
+Elements that not match will return values according to \code{nomatch}.
 }
 \examples{
 encoder(c("a","b","d"), c("a","b","c"), c("A","B","C"))
+encoder(c("a","b","d"), c("a","b","c"), c("A","B","C"), nomatch = "original")
 }
